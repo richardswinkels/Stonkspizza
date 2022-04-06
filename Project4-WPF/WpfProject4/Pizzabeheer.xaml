@@ -1,0 +1,116 @@
+﻿<Window x:Class="WpfProject4.Pizzabeheer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfProject4"
+        mc:Ignorable="d"
+        Title="Pizzabeheer" Height="500" Width="450">
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="#252525" />
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
+
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1"
+                   Grid.ColumnSpan="5"
+                   Grid.Row="1"
+                   FontSize="30"
+                   Foreground="White"
+                   VerticalAlignment="Center"
+                   TextDecorations="Underline">Pizzabeheer</TextBlock>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="5"
+                    Grid.Row="3">
+            <TextBlock Foreground="White"
+                       FontSize="14"
+                       VerticalAlignment="Center"
+                       Margin="0,0,10,0">Pizza:</TextBlock>
+            <ComboBox x:Name="cmbPizzas"
+                      Width="200"
+                      ItemsSource="{Binding Pizzas}"
+                      SelectedItem="{Binding SelectedPizza}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="Id" />
+                                    <Binding Path="Name" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button x:Name="btnAddPizza"
+                    Width="25"
+                    Height="25"
+                    Margin="3,0,0,0"
+                    Click="btnAddPizza_Click">+</Button>
+            <Button x:Name="btnDeletePizza"
+                    Width="25"
+                    Height="25"
+                    Margin="3,0,0,0"
+                    Click="btnDeletePizza_Click">-</Button>
+        </StackPanel>
+        <TextBlock Grid.Row="5"
+                   Grid.Column="1"
+                   Foreground="White"
+                   FontSize="14">Naam:</TextBlock>
+        <TextBox x:Name="txbName"
+                 Grid.Row="6"
+                 Grid.Column="1"
+                 Text="{Binding Path=SelectedPizza.Name, UpdateSourceTrigger=Explicit}" />
+        <TextBlock Grid.Row="5"
+                   Grid.Column="3"
+                   Foreground="White"
+                   FontSize="14">Afbeelding:</TextBlock>
+        <Button x:Name="Afbeelding"
+                Grid.Row="6"
+                Grid.Column="3"
+                Visibility="Hidden"
+                Click="btnUploadPizzaImage_Click">Afbeelding toevoegen</Button>
+        <Border Margin="25,5,25,5"
+                Grid.Row="9"
+                Grid.Column="3"
+                BorderBrush="White"
+                BorderThickness="5">
+            <Image x:Name="Imagesource"></Image>
+        </Border>
+        <ListView x:Name="lvIngredients" Margin="0,10,0,10" Visibility="Hidden" Grid.Row="9" Grid.Column="1" ItemsSource="{Binding AssociatedPizzaIngredients}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedIngredientToDelete}" MouseDoubleClick="LbAssociatedIngredients_MouseDoubleClick">
+        </ListView>
+
+        <TextBlock x:Name="tbAddIngredient" Visibility="Hidden" Grid.Column="1" Grid.Row="10" Foreground="White" FontSize="14" HorizontalAlignment="Left">Ingrediënt toevoegen:</TextBlock>
+        <Button x:Name="btnAddIngredient" Visibility="Hidden" Grid.Column="3" Grid.Row="13" Width="20" Height="20" HorizontalAlignment="Left" Click="btnAddIngredient_Click">+</Button>
+        <ComboBox x:Name="cmbIngredients" Visibility="Hidden" Grid.Column="1" Width="200" Height="20" Grid.Row="13" ItemsSource="{Binding Ingredients}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedIngredientToAdd}"></ComboBox>
+        <Button x:Name="btnSavePizza"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Grid.Row="8"
+                Margin="5"
+                Style="{StaticResource EmployeeSaveButton}"
+                Click="btnSavePizza_Click">Opslaan</Button>
+    </Grid>
+</Window>

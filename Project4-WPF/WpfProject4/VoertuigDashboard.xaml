@@ -1,0 +1,40 @@
+﻿<Window x:Class="WpfProject4.VoertuigDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfProject4"
+        mc:Ignorable="d"
+        Title="Voertuigbeheer" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="#252525"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="30" Foreground="White" VerticalAlignment="Center" TextDecorations="Underline">Voertuigbeheer</TextBlock>
+        <TextBlock x:Name="tbWelcome" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=AuthenticatedUser.Name, StringFormat='Welkom {0}'}"/>
+
+        <Image Grid.Column="1" Grid.Row="3" Source="Images/bike.png"/>
+
+
+        <StackPanel Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" Orientation="Vertical" VerticalAlignment="Center">
+            <Button x:Name="btnFietsmerkenbeheer" Style="{StaticResource DashboardButton}" Click="btnFietsmerkenbeheer_Click">Fiets merken</Button>
+            <Button x:Name="btnFietsmodellenbeheer" Style="{StaticResource DashboardButton}" Click="btnFietsmodellenbeheer_Click">Fiets modellen</Button>
+            <Button x:Name="btnFietsenbeheer" Style="{StaticResource DashboardButton}" Click="btnFietsenbeheer_Click">Fietsen koppelen aan werknemer</Button>
+        </StackPanel>
+    </Grid>
+</Window>

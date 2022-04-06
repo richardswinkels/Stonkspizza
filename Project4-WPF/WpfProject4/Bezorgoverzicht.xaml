@@ -1,0 +1,110 @@
+﻿<Window x:Class="WpfProject4.Bezorgoverzicht"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfProject4"
+        mc:Ignorable="d"
+        Title="Bezorgoverzicht" Height="350" Width="500">
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="#252525" />
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="15" />
+
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1"
+                   Grid.ColumnSpan="3"
+                   Grid.Row="1"
+                   FontSize="30"
+                   Foreground="White"
+                   VerticalAlignment="Center"
+                   TextDecorations="Underline">Bezorgoverzicht</TextBlock>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="5"
+                    Grid.Row="3">
+            <TextBlock Foreground="White"
+                       FontSize="14"
+                       VerticalAlignment="Center"
+                       Margin="0,0,10,0">Moeten worden bezorgd:</TextBlock>
+            <ComboBox x:Name="cmbOrders"
+                      Width="200"
+                      ItemsSource="{Binding Orders}"
+                      SelectedItem="{Binding SelectedOrder}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}">
+                                    <Binding Path="Id" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <TextBlock Grid.Row="5"
+                   Grid.Column="1"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontSize="14">Klant:</TextBlock>
+        <TextBlock IsEnabled="False" Grid.Row="6" Grid.Column="1" Foreground="White" FontSize="14">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} - {1} {2}">
+                    <Binding Path="AssociatedCustomer.Id"/>
+                    <Binding Path="AssociatedCustomer.FirstName"/>
+                    <Binding Path="AssociatedCustomer.LastName"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+        <TextBlock Grid.Row="5"
+                   Grid.Column="3"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontSize="14">Bezorgadres:</TextBlock>
+        <TextBlock IsEnabled="False" Grid.Row="6" Grid.Column="3" Foreground="White" FontSize="14" Text="{Binding AssociatedCustomer.Address}"></TextBlock>
+        <TextBlock Grid.Row="8"
+                   Grid.Column="1"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontSize="14">Bezorgmoment:</TextBlock>
+        <TextBlock Grid.Row="9" Grid.Column="1" Foreground="White" FontSize="14" Text="{Binding Path=SelectedOrder.DeliveryTime, StringFormat={}{0:dd-MM-yyyy HH:mm}}"></TextBlock>
+        <TextBlock Grid.Row="8"
+                   Grid.Column="3"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontSize="14">Woonplaats:</TextBlock>
+        <TextBlock IsEnabled="False" Grid.Row="9" Grid.Column="3" Foreground="White" FontSize="14" Text="{Binding AssociatedCustomer.City}"></TextBlock>
+        <Button x:Name="btnPrepareOrder"
+                Grid.Column="1"
+                Click="BtnShowOrder_Click"  
+                Grid.ColumnSpan="3"
+                Background="SeaGreen"
+                Grid.Row="11"
+                Margin="5"
+                Style="{StaticResource EmployeeSaveButton}">Bestelling inzien</Button>
+
+    </Grid>
+</Window>

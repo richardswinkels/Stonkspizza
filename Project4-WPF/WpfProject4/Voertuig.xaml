@@ -1,0 +1,106 @@
+﻿<Window x:Class="WpfProject4.Voertuig"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfProject4"
+        mc:Ignorable="d"
+        Title="Voertuig" Height="350" Width="600">
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="#252525" />
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="25" />
+
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1"
+                   Grid.ColumnSpan="3"
+                   Grid.Row="1"
+                   FontSize="30"
+                   Foreground="White"
+                   VerticalAlignment="Center"
+                   TextDecorations="Underline">Voertuig beheer</TextBlock>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="5"
+                    Grid.Row="3">
+            <TextBlock Foreground="White"
+                       FontSize="14"
+                       VerticalAlignment="Center"
+                       Margin="0,0,10,0">Koppel voertuig aan medewerker:</TextBlock>
+            <ComboBox x:Name="cmbBikes"
+                      Width="200"
+                      ItemsSource="{Binding Bikes }"
+                      SelectedItem="{Binding SelectedBike}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}">
+                                    <Binding Path="Id" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button x:Name="btnAddBike"
+                    Click="BtnAddBike_Click"
+                    Width="25"
+                    Height="25"
+                    Margin="3,0,0,0" RenderTransformOrigin="0.504,0.5">+</Button>
+            <Button x:Name="btnDeleteBike"
+                    Click="BtnDeleteBike_Click"
+                    Width="25"
+                    Height="25"
+                    Margin="3,0,0,0">-</Button>
+        </StackPanel>
+        <TextBlock Grid.Row="5"
+                   Grid.Column="1"
+                   Foreground="White"
+                   FontSize="14">Merk:</TextBlock>
+        <ComboBox x:Name="cmbBrands" Grid.Row="6" Grid.Column="1" DisplayMemberPath="Name" ItemsSource="{Binding Brands}" SelectedValuePath="Id" SelectedValue="{Binding Path=SelectedBike.BrandId}"/>
+
+        <TextBlock Grid.Row="5"
+                   Grid.Column="3"
+                   Foreground="White"
+                   FontSize="14">Model:</TextBlock>
+
+        <ComboBox x:Name="cmbModels" Grid.Row="6" Grid.Column="3" DisplayMemberPath="Name" ItemsSource="{Binding Models}" SelectedValuePath="Id" SelectedValue="{Binding Path=SelectedBike.ModelId}"/>
+        <TextBlock Grid.Row="8"
+                   Grid.Column="1"
+                   Foreground="White"
+                   FontSize="14">Medewerker:</TextBlock>
+        <ComboBox x:Name="cmbEmployees" Grid.Row="9" Grid.Column="1" DisplayMemberPath="FirstName" ItemsSource="{Binding Employees}" SelectedValuePath="Id" SelectedValue="{Binding Path=SelectedBike.EmployeeId}"/>
+
+
+        <Button x:Name="btnSaveBike"
+                Click="BtnSaveBike_Click"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Grid.Row="11"
+                Margin="5"
+                Style="{StaticResource EmployeeSaveButton}">Opslaan</Button>
+    </Grid>
+</Window>

@@ -1,0 +1,99 @@
+﻿<Window x:Class="WpfProject4.PrepareOrder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfProject4"
+        mc:Ignorable="d"
+        Title="Bestelinzage" Height="550" Width="550" Language="NL-nl">
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="#252525"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <TextBlock Foreground="White"
+                       FontSize="14"
+                       VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" TextDecorations="Underline" FontWeight="Bold">Bestelde pizza's:</TextBlock>
+        <TextBlock Foreground="White"
+                       FontSize="14"
+                       VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" TextDecorations="Underline" FontWeight="Bold">Ingrediënten:</TextBlock>
+        <ListBox x:Name="lbOrderedPizzas" Grid.Column="1" Grid.Row="3" ItemsSource="{Binding Orderitems}" SelectedItem="{Binding SelectedOrderitem}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}Pizza {0} - {1} - {2:C}">
+                                <Binding Path="PizzaName"/>
+                                <Binding Path="SizeName"/>
+                                <Binding Path="Price"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox Grid.Column="3" Grid.Row="3" ItemsSource="{Binding IngredientOrderitems}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1} - {2:C}">
+                                <Binding Path="Unit"/>
+                                <Binding Path="Name"/>
+                                <Binding Path="Price"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock Grid.Row="4" Grid.Column="1" Foreground="White" FontSize="14">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}Totaalprijs: {0:C}">
+                    <Binding Path="Order.Price"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="3" Foreground="White" FontSize="14">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}Totaalprijs: {0:C}">
+                    <Binding Path="SelectedOrderitem.Price"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+        <Button x:Name="btnPrepareOrderStart"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Click="BtnPrepareOrderStart_Click"  
+                Background="SeaGreen"
+                Grid.Row="6"
+                Margin="5"
+                Visibility="Hidden"
+                Style="{StaticResource EmployeeSaveButton}">Start met bereiding</Button>
+        <Button x:Name="btnBakeOrder"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Click="BtnBakeOrder_Click"  
+                Background="IndianRed"
+                Grid.Row="6"
+                Margin="5"
+                Visibility="Hidden"
+                Style="{StaticResource EmployeeSaveButton}">Bestelling bakken</Button>
+    </Grid>
+</Window>
