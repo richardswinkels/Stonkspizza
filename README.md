@@ -1,7 +1,7 @@
 # Stonkspizza
 Deze repository bevat de broncode van het project Stonkspizza. De website is tevens te bezoeken via [deze link](https://richardswinkels.nl/projects/stonkspizza/).
 
-Om dit project te draaien, clone de GitHub repo. 
+Om het Laravel project te draaien, clone de GitHub repo. 
 Voer vervolgens de volgende commando's uit: 
 <ul>
     <li>composer update</li>
